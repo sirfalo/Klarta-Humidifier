@@ -1,118 +1,98 @@
-Klarta Humea Grande WiFi – Home Assistant Integration
-What is this?
-Klarta Humea Grande WiFi custom component brings full control and live sensor monitoring of your Klarta Humea humidifier into Home Assistant. It supports reliable LAN control using a local key and exposes all key device features as Home Assistant entities.
+# 💧 Klarta Humea Grande WiFi – Home Assistant Integration
 
-Features:
+## 📝 What is this?
 
-Turn humidifier ON/OFF
+**Klarta Humea Grande WiFi** is a custom component for Home Assistant that brings full local control and monitoring of your Klarta Humea humidifier to your smart home. You control power, set target humidity, adjust fan speed, activate night mode, and monitor water level and temperature—**all from your Home Assistant dashboard**.
 
-Set target humidity
+**Features:**
+- 🔌 Turn humidifier ON/OFF
+- 🎯 Set target humidity
+- 📊 Monitor current humidity
+- 🌙 Control Night Mode (switch)
+- 🌡️ Monitor temperature sensor
+- 💧 Monitor water level (read-only)
+- 🌀 Select Fan Speed (Low, Medium, High) via a selector
 
-Monitor current humidity
+---
 
-Control Night Mode (switch)
+## 📦 Installation
 
-Monitor temperature sensor
+### 1. Get Device Info
 
-Monitor water level sensor (read-only)
+Before starting, you’ll need:
+- **Device ID**
+- **Local Key**
+- *(Optional)* Device IP and Protocol (defaults to 3.4)
 
-Select Fan Speed (Low, Medium, High) via a select entity
+See the [LocalTuya guide](https://github.com/rospogrigio/localtuya/wiki/How-to-get-Local-Keys-and-Device-IDs) if you don’t know how to get these.
 
-Installation
-1. Get Device Info
-To use this, you need:
+### 2. Copy Files
 
-Device ID
+Place all these files in `/config/custom_components/klarta_humea`:
+- `__init__.py`
+- `manifest.json`
+- `config_flow.py`
+- `const.py`
+- `humidifier.py`
+- `switch.py`
+- `sensor.py`
+- `select.py`
+- `device_manager_v5_7_FINAL.py`
 
-Local Key
+*(Use File Editor add-on, Samba, or File Browser to upload.)*
 
-(Optionally) Device IP and Protocol (3.4)
+### 3. Restart Home Assistant
 
-See Getting Tuya Local Key if unsure.
+Open **Settings → System → Restart**.
 
-2. Download/Copy the Files
-Copy these files into a new folder /config/custom_components/klarta_humea in your Home Assistant config directory:
+### 4. Add the Integration
 
-__init__.py
+Go to **Settings → Devices & Services → Add Integration**. Search for “Klarta Humea Grande WiFi”, fill in your info, and complete setup.
 
-manifest.json
+---
 
-config_flow.py
+## 🛠️ How to Use
 
-const.py
+### Available Entities
 
-humidifier.py
+- **Humidifier:**  
+  - `humidifier.xxx` – On/Off, target humidity, current humidity
 
-switch.py
+- **Fan Speed:**  
+  - `select.xxx_fan_speed` – 🌀 Choose Low/Medium/High
 
-sensor.py
+- **Night Mode:**  
+  - `switch.xxx_night_mode` – 🌙 On/Off
 
-select.py
+- **Power:**  
+  - `switch.xxx_power` – 🔌 On/Off
 
-device_manager_v5_7_FINAL.py
+- **Sensors:**  
+  - `sensor.xxx_temperature` – 🌡️ Current Temp (°C)  
+  - `sensor.xxx_water_level` – 💧 Water_enough / Refill
 
-(File browser, Samba, or File Editor add-on can be used.)
+### 💡 Example Lovelace Cards
 
-3. Restart Home Assistant
-Go to Settings → System → Restart
+- **Add these entities to your dashboard for control:**
+  - `humidifier.xxx`
+  - `select.xxx_fan_speed`
+  - `switch.xxx_night_mode`
+  - `switch.xxx_power`
+  - `sensor.xxx_temperature`
+  - `sensor.xxx_water_level`
 
-4. Add Integration
-Navigate to Settings → Devices & Services → Add Integration → Search for “Klarta Humea Grande WiFi”.
+### ⚙️ Automations & Scripts
 
-Enter:
+- Trigger automations based on humidity, temperature, or water level.
+- Use scripts to automatically change fan speed or night mode.
 
-Name for device
+---
 
-Device ID
+## 🆘 Troubleshooting
 
-Local Key
-
-Device IP
-
-Protocol (leave default 3.4 normally)
-
-Save the integration.
-
-How to Use
-Main Features
-Humidifier (Entity: humidifier.xxx): On/Off, target and current humidity
-
-Fan Speed (select.xxx_fan_speed): Choose Low/Medium/High
-
-Night Mode (switch.xxx_night_mode): Toggle night mode on/off
-
-Power (switch.xxx_power): Quick power toggle
-
-Sensors:
-
-Water Level: sensor.xxx_water_level – “Water_enough” or “Refill”
-
-Temperature: sensor.xxx_temperature – in Celsius
-
-UI Example
-In Overview, add the relevant entities to your dashboard:
-
-humidifier.xxx
-
-select.xxx_fan_speed
-
-switch.xxx_night_mode
-
-sensor.xxx_temperature
-
-sensor.xxx_water_level
-
-Use automations and scripts to automate based on humidity, water level, or status.
-
-Troubleshooting
-No entities appear?
-Double-check Device ID, Local Key, IP address, and protocol. Check Home Assistant logs for errors.
-
-Water level or temperature is missing?
-Wait for the device to send updates. Ensure your device is online.
-
-Fan speed or night mode don't respond?
-Verify your humidifier supports these functions in the Tuya/Smart Life app.
-
-Credits
-Based on TinyTuya and Home Assistant’s custom component guides.
+- **No entities?**  
+  Double-check Device ID, Local Key, IP, and Protocol. See Home Assistant logs for errors.
+- **Fan speed or night mode doesn’t work?**  
+  Ensure your model supports these features in the official app.
+- **Water level or temp missing?**  
+  Wait for device updates and verify sensor support
