@@ -96,3 +96,5 @@ Go to **Settings → Devices & Services → Add Integration**. Search for “Kla
   Ensure your model supports these features in the official app.
 - **Water level or temp missing?**  
   Wait for device updates and verify sensor support
+
+This custom component was created with support from AI.
